@@ -12,6 +12,7 @@ interface CanvasWrapperProps extends CanvasProps {
   onNodeSelect?: (nodeId: string) => void;
   onNodeDragEnd?: (nodeId: string, x: number, y: number) => void;
   onNodeResize?: (nodeId: string, width: number, height?: number) => void;
+  onNodeTextChange?: (nodeId: string, newText: string) => void;
   onEdgeSelect?: (edgeId: string) => void;
   onEdgeCreationStateChange?: (state: EdgeCreationState) => void;
   onStageClick?: (x: number, y: number) => void;

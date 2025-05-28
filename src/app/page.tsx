@@ -29,6 +29,24 @@ export default function Home() {
     tempEdge: null,
   });
 
+  // Handle node text change
+  const handleNodeTextChange = useCallback((nodeId: string, newText: string) => {
+    setNodes(prevNodes =>
+      prevNodes.map(node =>
+        node.id === nodeId && node.type === 'text' 
+          ? { ...node, text: newText } 
+          : node
+      )
+    );
+    // Optional: If text change affects node dimensions, update edges
+    // const updatedNode = nodes.find(n => n.id === nodeId);
+    // if (updatedNode) {
+    //   // This might require recalculating width/height in TextNode and passing it up
+    //   // For now, assuming text change doesn't immediately change rendered width/height for edges
+    //   updateEdgeConnectionPoints(nodeId, updatedNode.x, updatedNode.y);
+    // }
+  }, [nodes]); // Added nodes to dependency array
+
   // Handle edge creation completion
   useEffect(() => {
     if (edgeCreationState.sourceNodeId && edgeCreationState.targetNodeId) {
@@ -314,6 +332,7 @@ export default function Home() {
             onNodeSelect={handleNodeSelect}
             onNodeDragEnd={handleNodeDragEnd}
             onNodeResize={handleNodeResize}
+            onNodeTextChange={handleNodeTextChange}
             onEdgeSelect={handleEdgeSelect}
             onEdgeCreationStateChange={setEdgeCreationState}
             onStageClick={handleStageClick}

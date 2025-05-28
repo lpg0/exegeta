@@ -22,6 +22,7 @@ interface CanvasWithNodesProps extends CanvasProps {
   onNodeSelect?: (nodeId: string) => void;
   onNodeDragEnd?: (nodeId: string, x: number, y: number) => void;
   onNodeResize?: (nodeId: string, width: number, height?: number) => void;
+  onNodeTextChange?: (nodeId: string, newText: string) => void;
   onEdgeSelect?: (edgeId: string) => void;
   onEdgeCreationStateChange?: (state: EdgeCreationState) => void;
   onStageClick?: (x: number, y: number) => void;
@@ -37,6 +38,7 @@ const Canvas = forwardRef<CanvasRef, CanvasWithNodesProps>(({
   onNodeSelect,
   onNodeDragEnd,
   onNodeResize,
+  onNodeTextChange,
   onEdgeSelect,
   onEdgeCreationStateChange,
   onStageClick,
@@ -337,6 +339,7 @@ const Canvas = forwardRef<CanvasRef, CanvasWithNodesProps>(({
               }}
               onSelect={handleNodeSelect}
               onDragEnd={onNodeDragEnd}
+              onTextChange={onNodeTextChange}
             />
           ))}
 
