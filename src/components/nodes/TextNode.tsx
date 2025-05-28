@@ -17,7 +17,6 @@ const TextNode: React.FC<TextNodeProps> = ({ node, onSelect, onDragEnd, onTextCh
   const textAreaElementRef = useRef<HTMLTextAreaElement | null>(null);
 
   const handleClick = useCallback(() => {
-    console.log(`TextNode ${node.id}: Single click detected, isEditing:`, isEditing);
     if (isEditing) return;
     
     // Clear any existing timeout
@@ -28,13 +27,11 @@ const TextNode: React.FC<TextNodeProps> = ({ node, onSelect, onDragEnd, onTextCh
     
     // Set a timeout for single click action
     clickTimeoutRef.current = setTimeout(() => {
-      console.log(`TextNode ${node.id}: Processing single click`);
       onSelect?.(node.id);
     }, 200);
   }, [node.id, isEditing, onSelect]);
 
   const handleDragEnd = useCallback((e: Konva.KonvaEventObject<DragEvent>) => {
-    console.log(`TextNode ${node.id}: Drag end detected`);
     if (isEditing) return;
     onDragEnd?.(node.id, e.target.x(), e.target.y());
   }, [node.id, isEditing, onDragEnd]);
@@ -143,8 +140,6 @@ const TextNode: React.FC<TextNodeProps> = ({ node, onSelect, onDragEnd, onTextCh
   }, [node, onTextChange]);
 
   const handleDoubleClick = useCallback(() => {
-    console.log(`TextNode ${node.id}: Double click detected, starting edit mode`);
-    
     // Clear single click timeout
     if (clickTimeoutRef.current) {
       clearTimeout(clickTimeoutRef.current);
