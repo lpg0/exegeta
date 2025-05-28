@@ -1,0 +1,221 @@
+Product Requirements Document: Web-Based Diagramming Tool
+Overview
+This web-based diagramming tool enables users to create custom diagrams by adding text and shape nodes to a canvas. It features snapping functionality for precise alignment, supports connections between nodes via edges, and allows users to save diagrams as JSON files for easy sharing and portability. Built with Next.js and React, the tool offers a modern, responsive user interface accessible from any device with a web browser. It addresses the need for a simple, intuitive diagramming solution for users such as designers, educators, students, and project managers who require quick visualization without complex software.
+Core Features
+Canvas Interface
+
+Description: A workspace where users can add, move, select, and delete nodes, create edges to connect nodes, and use zooming and panning for navigation.
+Importance: Provides the primary interaction area for diagram creation, ensuring flexibility and ease of use.
+Functionality: Users interact with a canvas to place and manipulate nodes and edges, with intuitive controls for navigation.
+
+Node Types
+
+Text Nodes:
+Description: Editable text boxes that can be placed on the canvas or grouped within shape nodes.
+Importance: Allows users to add labels or annotations to diagrams.
+Functionality: Users double-click to edit text and save changes by clicking outside or pressing Enter.
+
+
+Shape Nodes:
+Description: Various shapes including lines, rectangles, circles, polygons, arrows, crosses, plus signs, and curved lines, inspired by a provided toolbar.
+Importance: Enables diverse diagram creation for various use cases.
+Functionality: Users select shapes from a toolbar and place them on the canvas.
+
+
+
+Shape Customization
+
+Description: Shapes can be resized by dragging handles, with properties like fill and stroke color adjustable.
+Importance: Allows users to tailor shapes to their specific needs.
+Functionality: Users select a shape and use drag handles to resize or adjust properties via a panel.
+
+Snapping Functionality
+
+Description: Nodes snap to a grid or other nodes for alignment during movement or resizing.
+Importance: Ensures precise and professional-looking diagrams.
+Functionality: Visual feedback (e.g., highlighted lines) indicates snapping points as nodes are moved.
+
+Edge Creation
+
+Description: Users can create edges to connect nodes, representing relationships or flows.
+Importance: Enables the creation of flowcharts and connected diagrams.
+Functionality: Users select two nodes to create an edge, which is rendered as a line connecting them.
+
+Save and Download
+
+Description: Users can save the diagram state, including all nodes and edges, as a JSON file and download it. They can also upload JSON files to restore diagrams.
+Importance: Enables data portability and sharing.
+Functionality: A button triggers serialization of the diagram state to JSON and initiates file download. An upload option parses JSON to restore the diagram.
+
+User Experience
+User Personas
+The tool targets:
+
+Designers: Creating visual layouts or prototypes.
+Educators and Students: Building educational diagrams like mind maps.
+Project Managers: Developing flowcharts for processes.
+
+Key User Flows
+
+Adding a Node:
+Select node type (text or shape) from a toolbar.
+For shapes, choose from options like lines, rectangles, or circles.
+Click on the canvas to place the node.
+
+
+Editing Text:
+Double-click a text node to enter edit mode.
+Type or modify text, then save by clicking outside or pressing Enter.
+
+
+Resizing Shapes:
+Select a shape node.
+Drag resize handles to adjust dimensions.
+
+
+Moving Nodes:
+Select and drag nodes to new positions.
+Nodes snap to grid or other nodes for alignment.
+
+
+Creating Edges:
+Select two nodes to create a connecting edge.
+Edge appears as a line between nodes.
+
+
+Saving and Downloading:
+Click a "Save" or "Export" button.
+Download the generated JSON file.
+
+
+Loading a Diagram:
+Upload a JSON file via an input field.
+Diagram is restored on the canvas.
+
+
+
+UI/UX Considerations
+
+Intuitive toolbar for node and edge creation, similar to graphic design software.
+Clean, responsive design for accessibility across devices.
+Visual feedback for snapping (e.g., highlighted guidelines) and node/edge selection.
+Properties panel for adjusting node and edge attributes like color or size.
+
+Technical Architecture
+System Components
+
+Frontend: Built with Next.js and React for a responsive web application.
+Diagram Rendering: Uses Konva.js for canvas-based rendering of nodes and edges (https://konvajs.org/).
+
+
+No external APIs required; all functionality is client-side for the MVP.
+Potential integration with font libraries for text styling.
+Future server-side integration with Postgres using JSONB for storing diagram states.
+
+Infrastructure Requirements
+
+Deployed on a static hosting service like Vercel (https://vercel.com/) or Netlify (https://www.netlify.com/).
+No server-side infrastructure needed for the MVP.
+
+Development Roadmap
+Phase 1: Project Setup and Basic Diagram
+
+Set up Next.js and React project.
+Integrate Konva.js for canvas rendering.
+Implement basic diagram with default nodes (text, rectangle, circle) and edges using Konva shapes and lines.
+Enable node selection, movement, and basic edge creation using Konva event handling.
+
+Phase 2: Custom Node Types
+
+Define custom Konva components for "text" and "shape" types using Konva.Text and Konva.Shape.
+Implement rendering for different shape types (e.g., rectangle, circle, line).
+Implement editing functionality for text nodes using Konva.Text’s text editing capabilities.
+
+Phase 3: Shape Customization and Snapping
+
+Implement resizing for shape nodes using Konva.Transformer for drag handles.
+Add basic grid snapping for node movement using custom logic.
+Support additional shape types (e.g., triangles, polygons, arrows) using Konva shapes.
+
+Phase 4: Save and Load Functionality
+
+Implement serialization of diagram state to JSON by traversing Konva layers and shapes.
+Add a button to trigger JSON file download.
+Implement functionality to upload and load JSON files to restore diagrams by reconstructing Konva objects.
+
+Phase 5: Enhancements
+
+Implement snapping to other nodes for precise alignment using custom collision detection.
+Add a properties panel for adjusting node and edge attributes.
+Consider features like undo/redo, grouping, or rotation using Konva’s group and stage features.
+
+Logical Dependency Chain
+
+Set up Next.js project and integrate Konva.js.
+Implement basic diagram with default nodes and edges.
+Define custom node types for "text" and "shape".
+Implement rendering for different shape types.
+Implement edge creation between nodes using Konva.Line.
+Enable node movement and selection with Konva event listeners.
+Implement resizing for shape nodes using Konva.Transformer.
+Implement editing for text nodes.
+Implement grid snapping for node movement.
+Implement JSON serialization and download functionality.
+Implement JSON upload to restore diagram.
+Enhance snapping to include other nodes.
+Add properties panel for node and edge attributes.
+Implement undo/redo functionality.
+
+Risks and Mitigations
+
+Choosing the Right Library:
+Risk: Konva.js requires custom logic for node-edge interactions, unlike React Flow’s built-in features.
+Mitigation: Konva.js is well-documented and supports complex canvas interactions (https://konvajs.org/docs). Leverage community examples and Konva.Transformer for resizing and dragging.
+
+
+Implementing Snapping:
+Risk: Snapping logic may be complex without native support.
+Mitigation: Start with grid snapping using modulo arithmetic and implement object snapping with bounding box collision detection.
+
+
+Performance:
+Risk: Slow performance with many nodes and edges on the canvas.
+Mitigation: Optimize rendering with Konva’s layer management and limit node count for the MVP.
+
+
+Cross-Browser Compatibility:
+Risk: Inconsistencies across browsers due to canvas rendering.
+Mitigation: Test on major browsers and use Konva’s built-in compatibility features.
+
+
+User Experience:
+Risk: Interface may not be intuitive.
+Mitigation: Conduct user testing and iterate on design.
+
+
+
+Appendix
+Supported Shapes
+Based on the provided toolbar description, the app supports:
+
+Basic Shapes: Lines (diagonal, horizontal), rectangles, squares, circles, triangles.
+Symbols: Crosses, plus signs.
+Arrows: Single and double-headed arrows.
+Curved Shapes: Curved lines, S-shapes.
+Polygons: Regular polygons like pentagons and hexagons.For the MVP, prioritize lines, rectangles, circles, and triangles, with others added in later phases.
+
+Research Findings
+
+Konva.js: A 2D canvas library ideal for rendering shapes, text, and handling interactions (https://konvajs.org/).
+React Flow: Previously considered, but Konva.js offers more flexibility for custom shapes despite requiring custom node-edge logic.
+React-diagrams: Another option for flowcharts, but less suited for custom canvas rendering (https://github.com/projectstorm/react-diagrams).
+Syncfusion React Diagram: Commercial option with advanced features.
+
+Technical Specifications
+
+Use Konva.js for diagram rendering (https://konvajs.org/).
+Implement custom node components for different shapes and text using Konva shapes and Konva.Text.
+Use Konva.Line for edges and Konva event listeners for interactions.
+Implement custom snapping logic using coordinate calculations.
+Serialize diagram state by traversing Konva layers for JSON export.
+
